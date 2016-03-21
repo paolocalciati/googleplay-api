@@ -10,8 +10,8 @@
 # Do not remove
 GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
 
-import sys
 import requests
+import sys
 from pprint import pprint
 
 from config import *

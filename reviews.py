@@ -3,8 +3,8 @@
 # Do not remove
 GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
 
-import sys
 import requests
+import sys
 from pprint import pprint
 
 from config import *
@@ -33,7 +33,7 @@ else:
     maxNumReviews = 500
 
 
-# ingore unverified HTTPS request warning.
+# ignore unverified HTTPS request warning.
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # authentication

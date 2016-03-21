@@ -3,12 +3,14 @@
 # Do not remove
 GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
 
+import requests
 import sys
 from pprint import pprint
 
 from config import *
 from googleplay import GooglePlayAPI
 from helpers import sizeof_fmt
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 if (len(sys.argv) < 2):
     print "Usage: %s packagename [filename]"
@@ -22,6 +24,9 @@ if (len(sys.argv) == 3):
     filename = sys.argv[2]
 else:
     filename = packagename + ".apk"
+
+# Ignore unverified HTTPS request warning.
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 # Connect
 api = GooglePlayAPI(ANDROID_ID)

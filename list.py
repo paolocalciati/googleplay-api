@@ -3,12 +3,14 @@
 # Do not remove
 GOOGLE_LOGIN = GOOGLE_PASSWORD = AUTH_TOKEN = None
 
+import requests
 import sys
 from pprint import pprint
 
 from config import *
 from googleplay import GooglePlayAPI
 from helpers import sizeof_fmt, print_header_line, print_result_line
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 if (len(sys.argv) < 2):
     print "Usage: %s category [subcategory] [nb_results] [offset]" % sys.argv[0]
@@ -28,6 +30,9 @@ if (len(sys.argv) >= 4):
     nb_results = sys.argv[3]
 if (len(sys.argv) == 5):
     offset = sys.argv[4]
+
+# Ignore unverified HTTPS request warning.
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 api = GooglePlayAPI(ANDROID_ID)
 api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)

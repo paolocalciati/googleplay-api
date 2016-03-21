@@ -137,6 +137,12 @@ Downloading an app is really easy, just provide its package name. I only tested 
 To retrieve the most recent reviews of an app, just provide the package name and optionally the maximum number of reviews you want to see. The maximum allowed number of reviews is 500.
 
     $ python reviews.py com.google.android.gm [maxNumReviews]
+    
+### Downloading details
+
+To retrieve the details of an app (description, screenshots links, developer details and more), just provide the package name.
+
+    $ python details.py com.google.android.gm
 
 ### Sample Makefile
 
@@ -144,16 +150,20 @@ The project includes also a sample Makefile to do the following things:
 
 Get the list of the TOP_NUM_APPS (default is 100) apps from each category. Will save the output in a txt file in OUTFOLDER (default is ./output):
 
-    $ make getListTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=]
+    $ make getListTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
 
 Download the apk of all the apps in the file produced by previous task:
 
-    $ make downloadTopApps [OUTFOLDER=/output/folder/path]
+    $ make downloadTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
     
 Download the reviews of all the apps listed by the top apps file:
 
-    $ make reviewsTopApps [OUTFOLDER=/output/folder/path]
+    $ make reviewsTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
 
+Download the details of all the apps listed by the top apps file:
+
+    $ make detailsTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
+    
 ### Interactive shell
 An interactive shell can be started using the `apishell.py` script. It initializes the `api` object and logs you in.
 

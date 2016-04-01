@@ -148,17 +148,17 @@ To retrieve the details of an app (description, screenshots links, developer det
 
 The project includes also a sample Makefile to do the following things:
 
-Get the list of the TOP_NUM_APPS (default is 100) apps from each category. Will save the output in a txt file in OUTFOLDER (default is ./output):
+Get the list of the TOP_APPS_NUM (default is 100) apps from each category. Will save the output in a txt file in OUTFOLDER (default is ./output):
 
-    $ make getListTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
+    $ make getListTopApps [OUTFOLDER=/output/folder/path] [TOP_APPS_NUM=10]
 
 Download the apk of all the apps in the file produced by previous task:
 
-    $ make downloadTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
+    $ make downloadTopApps [OUTFOLDER=/output/folder/path] [TOP_APPS_NUM=10]
     
 Download the reviews of all the apps listed by the top apps file:
 
-    $ make reviewsTopApps [OUTFOLDER=/output/folder/path] [TOP_NUM_APPS=10]
+    $ make reviewsTopApps [OUTFOLDER=/output/folder/path] [TOP_APPS_NUM=10]
 
 Download the details of all the apps listed by the top apps file:
 

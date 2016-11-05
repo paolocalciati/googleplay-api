@@ -30,7 +30,7 @@ $(TOP_APPS_EACH_CAT):
 	test -e $(OUTFOLDER) | mkdir -p $(OUTFOLDER)
 	for i in $(CATEGORIES); do \
 		echo "Category:" $$i; \
-		python $(SCRIPTSFOLDER)/list.py $$i apps_topselling_free $(TOP_APPS_NUM) | \
+		torsocks python $(SCRIPTSFOLDER)/list.py $$i apps_topselling_free $(TOP_APPS_NUM) | \
 			cut -f2 -d';' | \
 			sed '/^Package .*/d' | \
 			sed '/^list\?.*/d' >> $@.temp; \
@@ -55,5 +55,5 @@ $(OUTFOLDER)/%-reviews.json:
 # Download the details of the apps that are listed in TOP_APPS_EACH_CAT
 $(OUTFOLDER)/%-details.json:
 	echo '** Downloading the details (description among others) for $*'
-	python $(SCRIPTSFOLDER)/details.py $* > $@
+	torsocks python $(SCRIPTSFOLDER)/details.py $* > $@
 	sleep 3

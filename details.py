@@ -34,39 +34,45 @@ appname = sys.argv[1]
 # Ignore unverified HTTPS request warning.
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-# authentication
-api = GooglePlayAPI(ANDROID_ID)
-api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)
+try:
 
-#invoking api method to get the app details.
-detailsResponse = api.details(appname)
+     # authentication
+     api = GooglePlayAPI(ANDROID_ID)
+     api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)
 
-doc = detailsResponse.docV2
-item = {}
+     #invoking api method to get the app details.
+     detailsResponse = api.details(appname)
 
-# if the length of the offer is 0, it means no app is found
-# with the given package name: setting return code to not found (2)
-if not len(doc.offer) > 0:
-     item['return_code'] = 2
+     doc = detailsResponse.docV2
+     item = {}
+
+     # if the length of the offer is 0, it means no app is found
+     # with the given package name: setting return code to not found (2)
+     if not len(doc.offer) > 0:
+          item['return_code'] = 2
+          print json.dumps(item)
+          exit()
+
+     item['micros'] = doc.offer[0].micros
+     item['offerType'] = doc.offer[0].offerType
+     item['vercode'] = doc.details.appDetails.versionCode
+     item['pkg_name'] = doc.details.appDetails.packageName
+     item['Details'] = {}
+     item['Details']['Description'] = doc.descriptionHtml
+     permission_list = doc.details.appDetails.permission
+     android_permissions = []
+     for p in permission_list:
+          if p in VALID_PERMISSIONS:
+               android_permissions.append(p)
+     #item['Details']['Permissions'] = ','.join(android_permissions)
+     item['return_code'] = 1
+
      print json.dumps(item)
-     exit()
 
-item['micros'] = doc.offer[0].micros
-item['offerType'] = doc.offer[0].offerType
-item['vercode'] = doc.details.appDetails.versionCode
-item['pkg_name'] = doc.details.appDetails.packageName
-item['Details'] = {}
-item['Details']['Description'] = doc.descriptionHtml
-permission_list = doc.details.appDetails.permission
-android_permissions = []
-for p in permission_list:
-     if p in VALID_PERMISSIONS:
-          android_permissions.append(p)
-#item['Details']['Permissions'] = ','.join(android_permissions)
-item['return_code'] = 0
-
-print json.dumps(item)
-
+except Exception as e:
+     item['return_code'] = 0
+     print json.dumps(item)
+     
 # print text_format.MessageToString(detailsResponse)
 
 

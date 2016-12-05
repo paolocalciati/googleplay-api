@@ -12,7 +12,8 @@ OUTFOLDER=output
 # parameter to retrieve the top N apps
 TOP_APPS_NUM=100
 # file listing all top N apps of each category
-TOP_APPS_EACH_CAT=$(OUTFOLDER)/top_$(TOP_APPS_NUM)_apps_$(TODAY).txt
+# TOP_APPS_EACH_CAT=$(OUTFOLDER)/top_$(TOP_APPS_NUM)_apps_$(TODAY).txt
+TOP_APPS_EACH_CAT=$(OUTFOLDER)/top_$(TOP_APPS_NUM)_apps.txt
 
 APPS:=$(shell cat $(TOP_APPS_EACH_CAT))
 DOWNLOAD_ALL_APPS:=$(APPS:%=$(OUTFOLDER)/%.apk)

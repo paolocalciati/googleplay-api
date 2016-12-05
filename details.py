@@ -44,19 +44,29 @@ detailsResponse = api.details(appname)
 doc = detailsResponse.docV2
 item = {}
 
+# if the length of the offer is 0, it means no app is found
+# with the given package name: setting return code to not found (2)
+if not len(doc.offer) > 0:
+     item['return_code'] = 2
+     print json.dumps(item)
+     exit()
+
+item['micros'] = doc.offer[0].micros
+item['offerType'] = doc.offer[0].offerType
 item['vercode'] = doc.details.appDetails.versionCode
 item['pkg_name'] = doc.details.appDetails.packageName
 item['Details'] = {}
-item['Details']['description'] = doc.descriptionHtml
+item['Details']['Description'] = doc.descriptionHtml
 permission_list = doc.details.appDetails.permission
 android_permissions = []
 for p in permission_list:
      if p in VALID_PERMISSIONS:
           android_permissions.append(p)
-item['Details']['permissions'] = ','.join(android_permissions)
+#item['Details']['Permissions'] = ','.join(android_permissions)
+item['return_code'] = 0
 
 print json.dumps(item)
 
-#print text_format.MessageToString(detailsResponse)
+# print text_format.MessageToString(detailsResponse)
 
 

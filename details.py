@@ -34,8 +34,8 @@ appname = sys.argv[1]
 # Ignore unverified HTTPS request warning.
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
+item = {}
 try:
-
      # authentication
      api = GooglePlayAPI(ANDROID_ID)
      api.login(GOOGLE_LOGIN, GOOGLE_PASSWORD, AUTH_TOKEN)
@@ -44,7 +44,6 @@ try:
      detailsResponse = api.details(appname)
 
      doc = detailsResponse.docV2
-     item = {}
 
      # if the length of the offer is 0, it means no app is found
      # with the given package name: setting return code to not found (2)
